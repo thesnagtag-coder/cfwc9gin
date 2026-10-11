@@ -1,0 +1,968 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Beneath the Surface - Timber &amp; Pests | The Snag Tag</title>
+<meta name="description" content="Timber and pest checker for home buyers and owners: rot, woodworm, termites and rodents, timber register, pest sighting log and cited non-chemical steps. Part of The Snag Tag Beneath the Surface collection.">
+<style>
+:root{
+  --paper:#F7FAFD; --sheet:#FFFFFF; --grid:rgba(45,91,154,.07); --grid2:rgba(45,91,154,.035);
+  --ink:#16243F; --ink2:#44546F; --muted:#6B7A93; --line:#C9D6E8; --line2:#E2EAF4;
+  --blue:#2D5B9A; --blue-soft:#E8F0FA; --cyan:#5F6B12; --cyan-soft:#F3F5E3;
+  --high:#B3261E; --high-soft:#FCEBEA; --med:#A15C00; --med-soft:#FFF3E0; --low:#2E7D4F; --low-soft:#E7F5EC;
+  --focus:#5F6B12; --shadow:0 1px 2px rgba(22,36,63,.06),0 4px 14px rgba(22,36,63,.05);
+  --mono:ui-monospace,"SFMono-Regular","Cascadia Mono","Roboto Mono",Consolas,monospace;
+  --sans:"Segoe UI",system-ui,-apple-system,"Helvetica Neue",Arial,sans-serif;
+}
+[data-theme="dark"]{
+  --paper:#0F1A2C; --sheet:#15233A; --grid:rgba(140,180,230,.07); --grid2:rgba(140,180,230,.035);
+  --ink:#E6EEF9; --ink2:#B8C6DB; --muted:#8C9BB2; --line:#2F4466; --line2:#243855;
+  --blue:#8CB4E6; --blue-soft:#1C3150; --cyan:#D4DE8A; --cyan-soft:#272C0C;
+  --high:#FF8A80; --high-soft:#3A1E22; --med:#FFB74D; --med-soft:#3A2C17; --low:#81C995; --low-soft:#1B3326;
+  --shadow:none;
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{
+  font-family:var(--sans); color:var(--ink); background:var(--paper); font-size:15px; line-height:1.5;
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px),
+  linear-gradient(var(--grid2) 1px,transparent 1px),linear-gradient(90deg,var(--grid2) 1px,transparent 1px);
+  background-size:80px 80px,80px 80px,16px 16px,16px 16px;
+}
+button,input,select,textarea{font:inherit;color:inherit}
+a{color:var(--blue)}
+.wrap{max-width:1180px;margin:0 auto;padding:0 16px}
+/* Title block */
+header.tb{background:var(--sheet);border-bottom:2px solid var(--ink);position:sticky;top:0;z-index:20}
+@media(max-width:700px){header.tb{position:static}.tb-cell{padding:8px 12px}}
+.tb-row{display:flex;align-items:stretch;gap:0;flex-wrap:wrap}
+.tb-cell{padding:10px 14px;border-right:1px solid var(--line);display:flex;flex-direction:column;justify-content:center;min-width:0}
+.tb-cell:last-child{border-right:0}
+.tb-label{font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.brand{flex:1 1 280px}
+.brand .coll{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--cyan)}
+.brand h1{margin:2px 0 0;font-size:20px;font-weight:700;letter-spacing:-.01em}
+.brand h1 span{color:var(--blue);font-weight:600}
+.tb-ctrl{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.seg{display:inline-flex;border:1px solid var(--ink);border-radius:4px;overflow:hidden}
+.seg button{border:0;background:transparent;padding:6px 10px;font-size:13px;cursor:pointer;font-family:var(--mono)}
+.seg button+button{border-left:1px solid var(--ink)}
+.seg button.on{background:var(--ink);color:var(--sheet)}
+nav.tabs{background:var(--sheet);border-bottom:1px solid var(--line)}
+nav.tabs .wrap{display:flex;gap:2px;overflow-x:auto;scrollbar-width:thin}
+nav.tabs button{border:0;background:none;padding:12px 14px;cursor:pointer;font-size:14px;color:var(--ink2);border-bottom:3px solid transparent;white-space:nowrap}
+nav.tabs button .n{font-family:var(--mono);font-size:11px;color:var(--muted);margin-right:6px}
+nav.tabs button.on{color:var(--ink);border-bottom-color:var(--cyan);font-weight:600}
+main{padding:22px 0 60px}
+.sheet{background:var(--sheet);border:1px solid var(--line);border-radius:6px;box-shadow:var(--shadow);margin-bottom:18px;position:relative}
+.sheet-h{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:12px 16px;border-bottom:1px solid var(--line2);flex-wrap:wrap}
+.sheet-h h2{margin:0;font-size:17px}
+.sheet-h .ref{font-family:var(--mono);font-size:11px;color:var(--muted);letter-spacing:.08em}
+.sheet-b{padding:16px}
+.lede{color:var(--ink2);margin:0 0 12px;max-width:760px}
+.grid{display:grid;gap:12px}
+.g2{grid-template-columns:repeat(2,minmax(0,1fr))}
+.g3{grid-template-columns:repeat(3,minmax(0,1fr))}
+.g4{grid-template-columns:repeat(4,minmax(0,1fr))}
+@media(max-width:820px){.g3,.g4{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:560px){.g2,.g3,.g4{grid-template-columns:1fr}}
+label.f{display:flex;flex-direction:column;gap:4px;font-size:13px;color:var(--ink2);min-width:0}
+label.f>span{font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+input[type=text],input[type=number],input[type=date],select,textarea{
+  width:100%;padding:9px 10px;border:1px solid var(--line);border-radius:4px;background:var(--sheet);font-size:14px}
+textarea{min-height:70px;resize:vertical}
+input:focus,select:focus,textarea:focus,button:focus-visible{outline:2px solid var(--focus);outline-offset:1px}
+.hint{font-size:12px;color:var(--muted)}
+.conv{font-family:var(--mono);font-size:12px;color:var(--cyan);min-height:16px}
+.btn{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--ink);background:var(--sheet);padding:8px 14px;border-radius:4px;cursor:pointer;font-size:14px}
+.btn:hover{background:var(--blue-soft)}
+.btn.pri{background:var(--ink);color:var(--sheet)}
+.btn.pri:hover{background:var(--blue);border-color:var(--blue)}
+.btn.sm{padding:5px 10px;font-size:13px}
+.btn.ghost{border-color:var(--line)}
+.btn.danger{border-color:var(--high);color:var(--high)}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{border:1px solid var(--line);background:var(--sheet);border-radius:999px;padding:5px 11px;font-size:13px;cursor:pointer;color:var(--ink2)}
+.chip.on{background:var(--cyan-soft);border-color:var(--cyan);color:var(--ink);font-weight:600}
+.chip.on::before{content:"\2713  ";color:var(--cyan)}
+/* Journey */
+.journey{display:flex;gap:0;overflow-x:auto;padding:4px 0}
+.jstep{flex:1 0 110px;text-align:center;position:relative;padding:8px 4px}
+.jstep .dot{width:34px;height:34px;margin:0 auto 6px;border:2px solid var(--ink);border-radius:50%;display:grid;place-items:center;font-family:var(--mono);font-size:12px;background:var(--sheet);position:relative;z-index:1}
+.jstep::after{content:"";position:absolute;top:24px;left:50%;right:-50%;border-top:2px dashed var(--line)}
+.jstep:last-child::after{display:none}
+.jstep .t{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase}
+.jstep .d{font-size:12px;color:var(--muted)}
+/* Tables */
+.tbl{width:100%;border-collapse:collapse;font-size:14px}
+.tbl th{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);text-align:left;padding:8px;border-bottom:2px solid var(--ink);font-weight:500}
+.tbl td{padding:10px 8px;border-bottom:1px solid var(--line2);vertical-align:top}
+.tbl td .sub{font-size:12px;color:var(--muted)}
+.tbl-wrap{overflow-x:auto}
+@media(max-width:700px){
+  .tbl.stack thead{display:none}
+  .tbl.stack tr{display:block;border:1px solid var(--line);border-radius:6px;margin-bottom:10px;padding:6px}
+  .tbl.stack td{display:block;border:0;padding:6px}
+  .tbl.stack td[data-l]::before{content:attr(data-l);display:block;font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+}
+.risk{display:inline-block;font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;padding:2px 8px;border-radius:3px;border:1px solid}
+.risk.High{color:var(--high);background:var(--high-soft);border-color:var(--high)}
+.risk.Medium{color:var(--med);background:var(--med-soft);border-color:var(--med)}
+.risk.Low{color:var(--low);background:var(--low-soft);border-color:var(--low)}
+.stat{display:inline-flex;border:1px solid var(--line);border-radius:4px;overflow:hidden;flex-wrap:wrap}
+.stat button{border:0;background:var(--sheet);padding:5px 9px;font-size:12px;cursor:pointer;font-family:var(--mono);color:var(--ink2)}
+.stat button+button{border-left:1px solid var(--line)}
+.stat button.on[data-v="ok"],.stat button.on[data-v="none"]{background:var(--low-soft);color:var(--low);font-weight:700}
+.stat button.on[data-v="finding"],.stat button.on[data-v="signs"]{background:var(--high-soft);color:var(--high);font-weight:700}
+.stat button.on[data-v="open"],.stat button.on[data-v="unchecked"]{background:var(--blue-soft);color:var(--blue);font-weight:700}
+.stat button.on[data-v="na"],.stat button.on[data-v="noaccess"]{background:var(--med-soft);color:var(--med);font-weight:700}
+.note-in{margin-top:6px;font-size:13px;padding:6px 8px}
+/* Findings */
+.fcard{border:1px solid var(--line);border-left:4px solid var(--blue);border-radius:6px;padding:12px 14px;margin-bottom:10px;background:var(--sheet);display:flex;gap:12px;justify-content:space-between;flex-wrap:wrap}
+.fcard.High{border-left-color:var(--high)}.fcard.Medium{border-left-color:var(--med)}.fcard.Low{border-left-color:var(--low)}
+.fid{font-family:var(--mono);font-weight:700;letter-spacing:.06em}
+.fcard .meta{font-size:13px;color:var(--ink2)}
+.empty{border:1px dashed var(--line);border-radius:6px;padding:26px;text-align:center;color:var(--muted)}
+/* Editor */
+.step{border-top:1px solid var(--line2);padding:16px 0}
+.step:first-child{border-top:0;padding-top:0}
+.step-h{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.step-h .num{width:28px;height:28px;border:2px solid var(--ink);border-radius:50%;display:grid;place-items:center;font-family:var(--mono);font-size:12px;flex:0 0 auto}
+.step-h h3{margin:0;font-size:15px}
+.step-h .tag{font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--cyan)}
+.q{font-size:14px;font-weight:600;margin:10px 0 6px}
+.editor-layout{display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:18px}
+@media(max-width:960px){.editor-layout{grid-template-columns:1fr}}
+.side{position:sticky;top:130px;align-self:start}
+@media(max-width:960px){.side{position:static}}
+.prompt-box{border:1px solid var(--cyan);border-radius:6px;background:var(--cyan-soft);padding:12px 14px}
+.prompt-box h4{margin:0 0 6px;font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--cyan)}
+.prompt-box ul{margin:4px 0 10px;padding-left:18px;font-size:13px}
+.prompt-box li{margin-bottom:4px}
+.warn{border:1px solid var(--high);background:var(--high-soft);border-radius:6px;padding:10px 12px;font-size:13px;margin-bottom:10px}
+.warn b{color:var(--high)}
+.info{border:1px solid var(--blue);background:var(--blue-soft);border-radius:6px;padding:10px 12px;font-size:13px;margin-bottom:10px}
+.ok{border:1px solid var(--low);background:var(--low-soft);border-radius:6px;padding:10px 12px;font-size:13px;margin-bottom:10px}
+/* Photos */
+.photos{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+@media(max-width:560px){.photos{grid-template-columns:1fr}}
+.ph{border:1px dashed var(--ink2);border-radius:6px;padding:10px;text-align:center;background:var(--paper);min-height:160px;display:flex;flex-direction:column;gap:6px;justify-content:center;align-items:center}
+.ph .pt{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase}
+.ph .pd{font-size:12px;color:var(--muted)}
+.ph img{max-width:100%;max-height:170px;border-radius:4px;border:1px solid var(--line)}
+.ph input{display:none}
+/* Dew */
+.dew-out{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-top:12px}
+@media(max-width:560px){.dew-out{grid-template-columns:1fr}}
+.kpi{border:1px solid var(--line);border-radius:6px;padding:10px 12px;background:var(--paper)}
+.kpi .k{font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.kpi .v{font-size:20px;font-weight:700;font-family:var(--mono)}
+.kpi .s{font-size:12px;color:var(--ink2)}
+.sum-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+@media(max-width:700px){.sum-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.legend{display:grid;gap:8px;font-size:13px}
+.legend div{display:flex;gap:10px;align-items:flex-start}
+.refs{font-size:13px;padding-left:18px}
+.refs li{margin-bottom:6px}
+.src{font-family:var(--mono);font-size:10.5px;letter-spacing:.03em;color:var(--muted);margin-top:4px}
+.src a{color:var(--cyan);text-decoration:none;border-bottom:1px dotted var(--cyan)}
+.srclist{list-style:none;padding:0;margin:0;font-size:13px}
+.srclist li{padding:8px 0;border-bottom:1px solid var(--line2);overflow-wrap:anywhere}
+.refs li,.rep-f dd{overflow-wrap:anywhere}
+.srclist .key{font-family:var(--mono);font-size:11px;color:var(--cyan);letter-spacing:.06em;text-transform:uppercase;display:block}
+.srclist li:target{background:var(--cyan-soft)}
+.steps li{margin-bottom:8px}
+@media(max-width:700px){#reportBody table.tbl{display:block;overflow-x:auto}}
+.toast{position:fixed;bottom:16px;left:50%;transform:translateX(-50%);background:var(--ink);color:var(--sheet);padding:10px 16px;border-radius:4px;font-size:14px;opacity:0;pointer-events:none;transition:opacity .2s;z-index:99;max-width:90vw}
+.toast.show{opacity:1}
+footer{border-top:2px solid var(--ink);background:var(--sheet);padding:14px 0;font-family:var(--mono);font-size:11px;letter-spacing:.08em;color:var(--muted)}
+footer .wrap{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.hide{display:none!important}
+.buyer-only,.owner-only{}
+body[data-mode="buyer"] .owner-only{display:none!important}
+body[data-mode="owner"] .buyer-only{display:none!important}
+/* Report */
+.rep-photos{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-top:8px}
+.rep-photos figure{margin:0;font-family:var(--mono);font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.08em}
+.rep-photos img{width:100%;border:1px solid var(--line);border-radius:3px}
+.rep-f{border:1px solid var(--line);border-radius:6px;padding:12px;margin-bottom:12px;page-break-inside:avoid}
+.rep-f dl{display:grid;grid-template-columns:170px 1fr;gap:4px 12px;margin:8px 0;font-size:13px}
+.rep-f dt{font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted)}
+.rep-f dd{margin:0}
+@media(max-width:560px){.rep-f dl{grid-template-columns:1fr}}
+@media print{
+  :root,[data-theme="dark"]{--paper:#fff;--sheet:#fff;--ink:#16243F;--ink2:#44546F;--muted:#5B6A82;--line:#B8C6DA;--line2:#DDE5F0;--blue:#2D5B9A;--blue-soft:#EEF3FA;--cyan:#5F6B12;--cyan-soft:#F3F5E3;--high:#B3261E;--high-soft:#FCEBEA;--med:#A15C00;--med-soft:#FFF3E0;--low:#2E7D4F;--low-soft:#E7F5EC}
+  body{background:#fff;font-size:12px;color:#16243F}
+  .rep-f{page-break-inside:auto}
+  .rep-f dl,.rep-photos figure{page-break-inside:avoid}
+  .rep-photos img{max-height:220px;object-fit:contain}
+  header.tb,nav.tabs,footer,.no-print,.toast{display:none!important}
+  .view{display:none!important}
+  #view-report{display:block!important}
+  .sheet{box-shadow:none;border-color:#999}
+  main{padding:0}
+}
+</style>
+</head>
+<body data-mode="buyer">
+
+<header class="tb">
+  <div class="wrap tb-row" style="padding:0">
+    <div class="tb-cell brand">
+      <div class="coll">The Snag Tag &middot; Beneath the Surface</div>
+      <h1>Timber &amp; <span>Pests</span></h1>
+    </div>
+    <div class="tb-cell">
+      <div class="tb-label">Mode</div>
+      <div class="seg" id="modeSeg" role="group" aria-label="Inspection mode">
+        <button data-v="buyer">Pre-Purchase</button><button data-v="owner">Maintenance</button>
+      </div>
+    </div>
+    <div class="tb-cell">
+      <div class="tb-label">Display</div>
+      <div class="seg" id="themeSeg" role="group" aria-label="Theme">
+        <button data-v="light">Light</button><button data-v="dark">Dark</button>
+      </div>
+    </div>
+  </div>
+</header>
+
+<nav class="tabs">
+  <div class="wrap" id="tabs">
+    <button data-t="start"><span class="n">00</span>Start</button>
+    <button data-t="sweep"><span class="n">01</span>Timber &amp; Pest Sweep</button>
+    <button data-t="checks"><span class="n">02</span>Master Checks</button>
+    <button data-t="findings"><span class="n">03</span>Findings</button>
+    <button data-t="log"><span class="n">04</span>Timber Register &amp; Pest Log</button>
+    <button data-t="report"><span class="n">05</span>Report</button>
+    <button data-t="guide"><span class="n">06</span>Guide &amp; Standards</button>
+  </div>
+</nav>
+
+<main>
+<div class="wrap">
+
+<!-- START -->
+<section class="view" id="view-start">
+  <div class="sheet">
+    <div class="sheet-h"><h2>Rot and pests work quietly. You can spot the signs.</h2><span class="ref">SHEET 00 &middot; START</span></div>
+    <div class="sheet-b">
+      <p class="lede">Timber rot and wood-boring pests usually start where timber stays damp and nobody looks: under floors, in roof spaces, behind cupboards and where wood touches soil. This check helps you find the visible signs, record where the moisture comes from, and track pests over time. You look, press gently and record. You never apply pesticides or treatments, and you never diagnose which rot or insect it is: a specialist does that.</p>
+      <div class="journey" aria-label="Inspection journey">
+        <div class="jstep"><div class="dot">1</div><div class="t">Outside</div><div class="d">Soil contact, drainage, firewood</div></div>
+        <div class="jstep"><div class="dot">2</div><div class="t">Inside</div><div class="d">Floors, frames, stairs, beams</div></div>
+        <div class="jstep"><div class="dot">3</div><div class="t">Hidden</div><div class="d">Roof space, sub-floor, cupboards</div></div>
+        <div class="jstep"><div class="dot">4</div><div class="t">Moisture</div><div class="d">Find the water source</div></div>
+        <div class="jstep"><div class="dot">5</div><div class="t">Pests</div><div class="d">Termites, beetles, rodents</div></div>
+        <div class="jstep"><div class="dot">6</div><div class="t">Record</div><div class="d">Grade, photos, sightings</div></div>
+        <div class="jstep"><div class="dot">7</div><div class="t">Escalate</div><div class="d">Licensed pest or timber specialist</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sheet">
+    <div class="sheet-h"><h2>Property details</h2><span class="ref">TITLE BLOCK</span></div>
+    <div class="sheet-b">
+      <div class="grid g3">
+        <label class="f"><span>Property name / reference</span><input type="text" data-p="name" placeholder="e.g. 12 Seaview Road"></label>
+        <label class="f"><span>Address</span><input type="text" data-p="address"></label>
+        <label class="f"><span>Inspection date</span><input type="date" data-p="date"></label>
+        <label class="f"><span>Inspected by</span><input type="text" data-p="inspector"></label>
+        <label class="f"><span>Main structure</span><select data-p="frame"><option value="">Select</option><option>Timber frame</option><option>Masonry with timber floors / roof</option><option>Concrete / steel frame</option><option>Not sure</option></select></label>
+        <label class="f"><span>Floor type (ground floor)</span><select data-p="floor"><option value="">Select</option><option>Suspended timber</option><option>Concrete slab</option><option>Mixed</option><option>Not sure</option></select></label>
+        <label class="f"><span>Last pest inspection / treatment</span><input type="text" data-p="lastpest" placeholder="Date and company, if known"></label>
+        <label class="f"><span>Existing termite system or warranty</span><input type="text" data-p="system" placeholder="Record, don't guess"></label>
+        <label class="f buyer-only"><span>Property occupied?</span>
+          <select data-p="occupied"><option value="">Select</option><option>Occupied</option><option>Vacant</option><option>Unknown</option></select></label>
+      </div>
+      <label class="f" style="margin-top:12px"><span>General notes</span><textarea data-p="notes"></textarea></label>
+    </div>
+  </div>
+
+  <div class="sheet">
+    <div class="sheet-h"><h2>Before you start - safety first</h2><span class="ref">HSE</span></div>
+    <div class="sheet-b">
+      <div class="warn"><b>Rodent droppings:</b> do not sweep or vacuum them. Ventilate for 30 minutes, wear gloves, and wet them with disinfectant before wiping up. <span class="src" style="display:inline">(<a href="#" data-src="CDC2">CDC Rodent clean-up</a>)</span></div>
+      <div class="warn"><b>Soft or crumbling timber:</b> do not stand on, load or lean on soft floors, stairs, decks or balcony timbers. Keep people off until a specialist has checked them. <span class="src" style="display:inline">(<a href="#" data-src="PP">Professional practice</a>)</span></div>
+      <ul style="margin:0;padding-left:18px;font-size:14px">
+        <li>Roof space and sub-floor: look from the hatch or opening only, with a torch and someone with you. Never step between joists. <span class="src" style="display:inline">(<a href="#" data-src="PP">Professional practice</a>)</span></li>
+        <li>Probing exposed wood for hollow spots is useful, but in a home you do not own, ask first and press gently. <span class="src" style="display:inline">(<a href="#" data-src="EPAT">EPA Termites</a>, <a href="#" data-src="PP">Professional practice</a>)</span></li>
+        <li>No sprays, powders or treatments: pest treatment is for a licensed professional. <span class="src" style="display:inline">(<a href="#" data-src="EPAT">EPA Termites</a>)</span></li>
+      </ul>
+      <div class="row" style="margin-top:14px"><button class="btn pri" data-go="sweep">Start the Timber &amp; Pest Sweep &rarr;</button><button class="btn" id="newFindingStart">Log something now</button></div>
+    </div>
+  </div>
+</section>
+
+<!-- SWEEP -->
+<section class="view hide" id="view-sweep">
+  <div class="sheet">
+    <div class="sheet-h"><h2>Timber &amp; Pest Sweep</h2><span class="ref">SHEET 01 &middot; <span id="sweepCount"></span></span></div>
+    <div class="sheet-b">
+      <p class="lede">Outside first, then inside, then the hidden spaces you can safely see into. Timber problems follow moisture, so for each area also ask: <b>is anything hidden, covered or kept damp?</b></p>
+      <div class="tbl-wrap"><table class="tbl stack" id="sweepTbl">
+        <thead><tr><th style="width:34%">Area</th><th>Status</th><th style="width:120px">Hidden or covered?</th><th style="width:130px"></th></tr></thead>
+        <tbody></tbody>
+      </table></div>
+    </div>
+  </div>
+</section>
+
+<!-- CHECKS -->
+<section class="view hide" id="view-checks">
+  <div class="sheet">
+    <div class="sheet-h"><h2>Master Timber &amp; Pest Checks</h2><span class="ref">SHEET 02 &middot; <span id="checkCount"></span></span></div>
+    <div class="sheet-b">
+      <p class="lede">Visual checks, gentle probing and habits. The <b>priority</b> shows how soon a licensed pest professional, timber specialist or structural engineer should look if the sign is found. It is not a diagnosis.</p>
+      <div class="row" style="margin-bottom:10px">
+        <span class="hint">Filter:</span>
+        <div class="seg" id="checkFilter"><button data-v="all" class="on">All</button><button data-v="High">High</button><button data-v="Medium">Medium</button><button data-v="open">Open</button><button data-v="finding">Findings</button></div>
+      </div>
+      <div class="tbl-wrap"><table class="tbl stack" id="checkTbl">
+        <thead><tr><th style="width:30%">Check</th><th style="width:26%">What to record</th><th>Priority</th><th>Status</th></tr></thead>
+        <tbody></tbody>
+      </table></div>
+    </div>
+  </div>
+</section>
+
+<!-- FINDINGS -->
+<section class="view hide" id="view-findings">
+  <div id="findList">
+    <div class="sheet">
+      <div class="sheet-h"><h2>Findings Register</h2><div class="row"><span class="ref" id="findCount"></span><button class="btn pri sm" id="addFinding">+ New finding</button></div></div>
+      <div class="sheet-b" id="findItems"></div>
+    </div>
+  </div>
+  <div id="findEdit" class="hide">
+    <div class="row no-print" style="margin-bottom:10px"><button class="btn ghost sm" id="backToList">&larr; All findings</button></div>
+    <div class="editor-layout">
+      <div class="sheet"><div class="sheet-h"><h2 id="edTitle">TMBR-001</h2><span class="ref">FINDING RECORD</span></div>
+        <div class="sheet-b" id="edBody"></div>
+      </div>
+      <aside class="side"><div class="prompt-box" id="promptBox"></div></aside>
+    </div>
+  </div>
+</section>
+
+<!-- LOG -->
+<section class="view hide" id="view-log">
+  <div class="sheet">
+    <div class="sheet-h"><h2>Timber Register</h2><span class="ref">SHEET 04 &middot; <span id="tbCount"></span></span></div>
+    <div class="sheet-b">
+      <p class="lede">List the timber you want to track: joists, beams, stairs, frames, decks, fences and furniture. Grade what you see today and re-grade at each check. Designing Buildings: find and fix the moisture source first; only then can remedial treatment be confidently undertaken.</p>
+      <div class="grid g3">
+        <label class="f"><span>Item</span><input type="text" id="tbItem" placeholder="e.g. Deck joists, back door frame"></label>
+        <label class="f"><span>Location</span><input type="text" id="tbLoc" placeholder="e.g. Rear garden, north side"></label>
+        <label class="f"><span>Type</span><select id="tbType"><option>Structural (joist, beam, post)</option><option>Floor / skirting</option><option>Window / door frame</option><option>Stairs</option><option>Roof timber</option><option>Deck / pergola / fence</option><option>External cladding / fascia</option><option>Timber furniture</option><option>Other</option></select></label>
+        <label class="f"><span>Condition today</span><select id="tbGrade"><option value="0">0 - Sound</option><option value="1">1 - Weathered or finish failing</option><option value="2">2 - Damp, stained or darkened</option><option value="3">3 - Soft when pressed, holes or cracking</option><option value="4">4 - Crumbling, fungus or active insects</option></select></label>
+        <label class="f"><span>Moisture meter reading (%, optional)</span><input type="number" id="tbMc" min="0" max="100" step="1" placeholder="Timber setting"></label>
+        <label class="f"><span>Touching soil?</span><select id="tbSoil"><option value="">Not sure</option><option>No</option><option>Yes</option></select></label>
+      </div>
+      <div class="row" style="margin-top:10px"><button class="btn pri" id="tbSave">Add to register</button></div>
+      <div class="tbl-wrap" style="margin-top:14px"><table class="tbl stack" id="tbTbl"><thead><tr><th>Item</th><th>Type</th><th>Grade</th><th>Moisture</th><th>Flags</th><th></th></tr></thead><tbody></tbody></table></div>
+      <p class="hint">Condition grades 0-4 are a recording scale (professional practice), not a structural rating. Moisture readings vary by meter and timber species: context only, never a diagnosis.</p>
+    </div>
+  </div>
+  <div class="sheet">
+    <div class="sheet-h"><h2>Pest Sighting Log</h2><span class="ref" id="psCount"></span></div>
+    <div class="sheet-b">
+      <p class="lede">Record every sighting with a date and a photo, so a professional can see the pattern. US EPA: choose a pest control company carefully, and check that firms offering termite services are licensed where you live.</p>
+      <div class="grid g3">
+        <label class="f"><span>What you saw</span><select id="psType"><option>Termites or suspected termites</option><option>Winged insects or discarded wings</option><option>Earthen tubes on walls or piers</option><option>Exit holes or bore dust (wood-boring beetles)</option><option>Rodent droppings, gnaw marks or nests</option><option>Other</option></select></label>
+        <label class="f"><span>Where</span><input type="text" id="psLoc" placeholder="e.g. Garage skirting, back left corner"></label>
+        <label class="f"><span>Date</span><input type="date" id="psDate"></label>
+        <label class="f"><span>Action</span><select id="psAct"><option>Monitoring</option><option>Professional booked</option><option>Entry points sealed</option><option>Resolved</option></select></label>
+      </div>
+      <div class="row" style="margin-top:10px"><button class="btn pri" id="psSave">Add sighting</button></div>
+      <div class="tbl-wrap" style="margin-top:14px"><table class="tbl stack" id="psTbl"><thead><tr><th>What</th><th>Where</th><th>Date</th><th>Action</th><th>Next step</th><th></th></tr></thead><tbody></tbody></table></div>
+    </div>
+  </div>
+</section>
+
+<!-- REPORT -->
+<section class="view hide" id="view-report">
+  <div class="row no-print" style="margin-bottom:12px">
+    <button class="btn pri" id="printBtn">Print / Save as PDF</button>
+    <button class="btn" id="exportBtn">Download backup (.json)</button>
+    <label class="btn">Restore backup<input type="file" id="importFile" accept=".json,application/json" style="display:none"></label>
+    <button class="btn danger" id="resetBtn">Clear all data</button>
+  </div>
+  <div class="sheet"><div class="sheet-b" id="reportBody"></div></div>
+</section>
+
+<!-- GUIDE -->
+<section class="view hide" id="view-guide">
+  <div class="sheet">
+    <div class="sheet-h"><h2>What you can do now</h2><span class="ref">SAFE STEPS &middot; ALL CITED</span></div>
+    <div class="sheet-b">
+      <p class="lede">Safe, non-chemical steps from public guidance. None of them involve pesticides, structural repairs or climbing. In a property you do not own, share these with the owner or landlord.</p>
+      <ul class="steps" id="stepsList" style="padding-left:18px;font-size:14px"></ul>
+    </div>
+  </div>
+  <div class="sheet">
+    <div class="sheet-h"><h2>How priorities are defined</h2><span class="ref">SHEET 06 &middot; KEY</span></div>
+    <div class="sheet-b legend">
+      <div><span class="risk High">High</span><span>Suspected termites (earthen tubes, hollow timber), possible dry rot (cuboidal cracking, fruiting bodies, spore dust), or soft, hollow or crumbling structural timber, stairs, decks or balcony timbers.</span></div>
+      <div><span class="risk Medium">Medium</span><span>Damp or stained timber, localised softness, exit holes or bore dust, winged insects, rodent signs, wood touching soil, or habits to change.</span></div>
+      <div><span class="risk Low">Low</span><span>Recorded for completeness, with no issue found.</span></div>
+      <p class="hint" style="margin:6px 0 0">Priority organises your findings. It is not a timber pest inspection or a structural rating. Priority definitions and condition grades: professional practice.</p>
+    </div>
+  </div>
+  <div class="sheet">
+    <div class="sheet-h"><h2>What this tool will not do</h2><span class="ref">LIMITS</span></div>
+    <div class="sheet-b">
+      <ul style="margin:0;padding-left:18px">
+        <li>It does not identify which fungus or insect is present. Treatments differ, so a specialist must diagnose it.</li>
+        <li>It gives no pesticide or chemical treatment advice. Treatment is for a licensed professional.</li>
+        <li>It does not replace a timber pest inspection required or recommended in your country (for example, inspections to Australian Standard AS 3660).</li>
+        <li>It never asks you to walk on soft timber, step between joists or open up walls or floors.</li>
+      </ul>
+    </div>
+  </div>
+  <div class="sheet">
+    <div class="sheet-h"><h2>Standards &amp; Measurements</h2><span class="ref">REFERENCES</span></div>
+    <div class="sheet-b">
+      <h3 style="font-size:14px;margin:0 0 6px">Guidance used in this tool</h3>
+      <ul class="refs">
+        <li><b>Termites:</b> probe exposed wood for hollow spots; learn to tell termite swarms from ant swarms (termite wings roughly equal in length, straight antennae); keep soil at the foundation dry through grading and drainage; reduce openings; do not store firewood or wood debris next to the house; choose a licensed pest control company. <span class="src" style="display:inline">(EPA Termites)</span></li>
+        <li><b>Rot:</b> dry rot needs damp timber with a moisture content of around 20% that is freely accessible to air, and can spread through masonry; signs include cuboidal cracking, cotton-wool-like mycelium, fruiting bodies and spore dust. Wet rot stays more localised. Find and fix the moisture source first; the correct diagnosis matters because treatments vary. <span class="src" style="display:inline">(Designing Buildings)</span></li>
+        <li><b>Wood-boring insects:</b> exit holes and bore dust (frass) are the signs; old holes do not always mean an active attack; beetles are attracted to damp timber; professional inspection tells old from active. <span class="src" style="display:inline">(Designing Buildings Woodworm)</span></li>
+        <li><b>Rodents:</b> mice can get through a hole the width of a pencil, 6 mm (1/4 in); seal gaps around pipes and lines with steel wool and caulk, or metal for larger gaps; store food in sealed containers. Do not sweep or vacuum droppings: ventilate 30 minutes, wear gloves, wet with disinfectant for 5 minutes, then wipe up. <span class="src" style="display:inline">(CDC Rodent seal-up, CDC Rodent clean-up)</span></li>
+        <li><b>Moisture:</b> fix leaks and dry wet materials quickly; keep indoor humidity below 60%, ideally 30-50%. <span class="src" style="display:inline">(EPA Mold &amp; Moisture)</span></li>
+        <li><b>Units:</b> 1 mm = 0.04 in; 6 mm = 1/4 in. Timber moisture in % from a meter on its timber setting, context only. Metric first, imperial in brackets.</li>
+      </ul>
+      <div class="info" style="margin-top:10px"><b>Country-specific:</b> Australia manages termites under AS 3660.1 (new buildings) and AS 3660.2 (existing buildings), and timber pest inspections are common before buying. In the US, firms offering termite services must be licensed by the state. Species, risks and rules differ widely by country and climate: check your local pest regulator.</div>
+      <p class="hint">Items marked <b>Professional practice</b> reflect general inspection and HSE practice. No single public standard covers them, so no standard is claimed.</p>
+      <h3 style="font-size:14px;margin:14px 0 6px">Source list</h3>
+      <ul class="srclist" id="srcList"></ul>
+    </div>
+  </div>
+</section>
+
+</div>
+</main>
+
+<footer><div class="wrap"><span>THE SNAG TAG &middot; BENEATH THE SURFACE COLLECTION &middot; SPECIALIST CHECK 11: TIMBER &amp; PESTS</span><span id="saveState">SAVED ON THIS DEVICE</span></div></footer>
+<div class="toast" id="toast"></div>
+
+<script>
+(function(){
+"use strict";
+var KEY='snagtag_bts_tmbr_v1';
+
+var SRC={
+ EPAT:{n:'US EPA - Termites: how to identify and control them',d:'updated 21 Oct 2025',u:'https://www.epa.gov/safepestcontrol/termites-how-identify-and-control-them'},
+ DBR:{n:'Designing Buildings - Recognising wood rot and insect damage in buildings',d:'current web guidance',u:'https://www.designingbuildings.co.uk/wiki/Recognising_wood_rot_and_insect_damage_in_buildings'},
+ DBD:{n:'Designing Buildings - Dry rot',d:'current web guidance',u:'https://www.designingbuildings.co.uk/wiki/Dry_rot'},
+ DBW:{n:'Designing Buildings - Woodworm in buildings',d:'current web guidance',u:'https://www.designingbuildings.co.uk/wiki/Woodworm_in_buildings'},
+ CDC1:{n:'US CDC - How to seal up to prevent rodents',d:'8 Apr 2024',u:'https://www.cdc.gov/healthy-pets/rodent-control/seal-up.html'},
+ CDC2:{n:'US CDC - How to clean up after rodents',d:'8 Apr 2024',u:'https://www.cdc.gov/healthy-pets/rodent-control/clean-up.html'},
+ EPA1:{n:'US EPA - A Brief Guide to Mold, Moisture and Your Home',d:'updated 18 Feb 2026',u:'https://www.epa.gov/mold/brief-guide-mold-moisture-and-your-home'},
+ SA:{n:'Standards Australia - Australia\'s termite management standard revised (AS 3660)',d:'22 Dec 2017',u:'https://www.standards.org.au/news/australias-termite-management-standard-revised'},
+ PP:{n:'Professional practice',d:'general inspection and HSE practice, no single public standard',u:''}
+};
+function srcShort(k){return {EPAT:'EPA Termites',DBR:'Designing Buildings Rot & insects',DBD:'Designing Buildings Dry rot',DBW:'Designing Buildings Woodworm',CDC1:'CDC Rodent seal-up',CDC2:'CDC Rodent clean-up',EPA1:'EPA Mold & Moisture',SA:'Standards Australia AS 3660',PP:'Professional practice'}[k];}
+function srcTags(keys){return '<div class="src">Source: '+(keys||['PP']).map(function(k){return '<a href="#src-'+k+'" data-src="'+k+'" title="'+esc(SRC[k].n)+'">'+srcShort(k)+'</a>';}).join(' &middot; ')+'</div>';}
+
+var SWEEP=[
+ {id:'soil',g:'Outside',a:'Wood touching soil',h:'Deck posts, fence posts, steps, cladding or frames in contact with the ground',s:['EPAT']},
+ {id:'grade',g:'Outside',a:'Ground and drainage at the foundation',h:'Soil kept dry, sloping away; no pooling or leaking downpipes',s:['EPAT','DBR']},
+ {id:'fire',g:'Outside',a:'Firewood, timber and debris against the house',h:'Stacked wood, offcuts or mulch touching walls',s:['EPAT']},
+ {id:'piers',g:'Outside',a:'Foundations, piers and slab edges',h:'Earthen tubes, damaged timber at the base of walls',s:['PP','EPAT']},
+ {id:'deck',g:'Outside',a:'Decks, pergolas, fences and steps',h:'Soft spots, cracks, loose boards, rusting fixings in wet timber',s:['PP','DBR']},
+ {id:'ext',g:'Outside',a:'External timber: cladding, fascias, window and door frames',h:'Peeling paint, dark staining, softness at joints and sills',s:['DBR']},
+ {id:'gaps',g:'Outside',a:'Gaps around pipes, cables, vents and doors',h:'Holes as small as 6 mm (1/4 in) that rodents can use',s:['CDC1']},
+ {id:'floor',g:'Inside',a:'Timber floors and skirting',h:'Soft spots, sagging, bounce, cracking or gaps opening',s:['DBR']},
+ {id:'frames',g:'Inside',a:'Window and door frames inside',h:'Softness at the bottom corners, dark staining, flaking paint',s:['DBR']},
+ {id:'beams',g:'Inside',a:'Exposed beams and stairs',h:'Small round exit holes, fresh bore dust, softness',s:['DBW','PP']},
+ {id:'wetzone',g:'Inside',a:'Timber near leaks, bathrooms and kitchens',h:'Damp, stained or soft timber near water',s:['DBR','EPA1']},
+ {id:'cupb',g:'Inside',a:'Under sinks and in cupboards',h:'Droppings, gnaw marks, nest material, damp timber',s:['CDC1','CDC2']},
+ {id:'furn',g:'Inside',a:'Timber furniture',h:'Small round holes and bore dust beneath',s:['DBW']},
+ {id:'smell',g:'Inside',a:'Musty or mushroom-like smells',h:'Where it is strongest, especially at floor level and in cupboards',s:['DBD']},
+ {id:'roofsp',g:'Hidden spaces',a:'Roof space timbers (from the hatch only)',h:'Damp or dark rafters, fungus, holes, bore dust, droppings',s:['DBR','PP']},
+ {id:'sub',g:'Hidden spaces',a:'Sub-floor or basement (only if safe access)',h:'Damp soil, fungus, earthen tubes, soft joists, poor ventilation',s:['EPAT','DBD']},
+ {id:'wings',g:'Hidden spaces',a:'Windowsills and light fittings',h:'Discarded wings or piles of small winged insects',s:['EPAT']},
+ {id:'records',g:'Records',a:'Pest inspection and treatment records',h:'Past inspections, treatments, termite systems and warranties',s:['SA','PP']}
+];
+
+var CHECKS=[
+ {id:'termites',t:'Signs of termites',r:'Earthen tubes, hollow-sounding timber, winged swarms or discarded wings.',m:'Where, photo',p:'High',s:['EPAT','PP']},
+ {id:'drot',t:'Possible dry rot',r:'Cuboidal cracking, cotton-wool-like growth, fruiting bodies, red-brown spore dust, mushroom smell.',m:'Where, photo',p:'High',s:['DBD','DBR']},
+ {id:'struct',t:'Structural timber sound',r:'Joists, beams, posts and stairs: no softness, crumbling or hollow spots.',m:'Item, what you found',p:'High',s:['DBR','PP']},
+ {id:'deckstr',t:'Deck and balcony timbers sound',r:'Posts, joists, stairs and railings: no softness, rot or loose fixings.',m:'Item, photo',p:'High',s:['PP']},
+ {id:'soil',t:'No wood-to-soil contact',r:'Timber kept off the ground.',m:'Where',p:'Medium',s:['EPAT']},
+ {id:'drainage',t:'Soil at the foundation kept dry',r:'Grading and drainage carry water away.',m:'Where water pools',p:'Medium',s:['EPAT']},
+ {id:'firewood',t:'Firewood and debris away from the house',r:'Not stored against walls.',m:'Where',p:'Medium',s:['EPAT']},
+ {id:'veg',t:'Openings reduced',r:'Gaps into the structure closed where you can.',m:'Where',p:'Medium',s:['EPAT']},
+ {id:'moisture',t:'Moisture source found and fixed',r:'Leaks, condensation or downpipes feeding damp timber.',m:'Source, fixed yes / no',p:'Medium',s:['DBR','EPA1']},
+ {id:'wetrot',t:'Localised soft timber',r:'Soft, dark or crumbling timber near a leak or at sills and joints.',m:'Where, size',p:'Medium',s:['DBR']},
+ {id:'ww',t:'Exit holes: old or active?',r:'Fresh bore dust or emerging beetles suggest activity; old holes may not.',m:'Where, fresh dust yes / no',p:'Medium',s:['DBW']},
+ {id:'furn',t:'Timber furniture',r:'Holes and fresh dust under furniture.',m:'Item',p:'Medium',s:['DBW']},
+ {id:'rodents',t:'Rodent signs',r:'Droppings, gnaw marks or nest material.',m:'Where, how much',p:'Medium',s:['CDC1','CDC2']},
+ {id:'gaps',t:'Entry gaps sealed',r:'Holes 6 mm (1/4 in) and larger around pipes, lines and vents.',m:'Where sealed, material',p:'Medium',s:['CDC1']},
+ {id:'food',t:'Food stored sealed',r:'Thick plastic, metal or glass containers with tight lids; pet food put away.',m:'Yes / no',p:'Medium',s:['CDC1']},
+ {id:'cleanup',t:'Droppings cleaned up safely',r:'Ventilate, gloves, disinfectant, no sweeping or vacuuming.',m:'Done yes / no',p:'Medium',s:['CDC2']},
+ {id:'ventsub',t:'Sub-floor and roof spaces ventilated',r:'Vents not blocked; no damp, still air around timber.',m:'What you see',p:'Medium',s:['PP','DBD']},
+ {id:'finish',t:'External timber finishes maintained',r:'Paint and stain intact, especially on sills and end grain.',m:'Where failing',p:'Medium',s:['PP']},
+ {id:'licensed',t:'Licensed pest professional used',r:'Credentials checked; inspection records kept.',m:'Company, licence, date',p:'Medium',s:['EPAT','SA']},
+ {id:'history',t:'Pest and timber history (buyers)',r:'Past infestations, treatments, repairs and warranties.',m:'Dates, reports',p:'Medium',s:['PP']}
+];
+
+var APPS=['Structural timber (joist, beam, post)','Floor / skirting','Window / door frame','Stairs','Roof timber','Deck / pergola / fence','External cladding / fascia','Timber furniture','Foundation / pier','Pipes / gaps / vents','Kitchen / cupboards','Other'];
+var SIGNS=['Soft when pressed or probed','Hollow-sounding timber','Crumbling or cuboidal cracking','White or grey fungal growth','Mushroom-like fruiting body','Red-brown spore dust','Musty or mushroom smell','Small round exit holes','Fresh bore dust (frass)','Earthen tubes on walls or piers','Winged insects or discarded wings','Droppings or gnaw marks','Nest material','Wood touching soil','Damp or stained timber','No issue seen'];
+var QUESTIONS=[
+ 'Has the home had termite, rot or woodworm treatment? When, by whom, and is there a warranty?',
+ 'Are there pest inspection reports or termite management records?',
+ 'Has any timber been replaced because of rot or insects?',
+ 'Have there been rodents or other pests, and how were they dealt with?',
+ 'Have there been leaks or damp problems near timber floors, frames or the roof?',
+ 'When were decks, stairs and balconies last checked?',
+ 'Are pest inspections required or common when buying in this area?'
+];
+
+var STEPS={
+ fixMoist:{t:'Find and fix the moisture source first (for example condensation, leaking downpipes or defective pipes). Only then can treatment be confidently undertaken.',s:['DBR']},
+ specialist:{t:'Suspected dry rot needs a qualified specialist: treatments differ from wet rot, and the wrong treatment risks it coming back.',s:['DBR','DBD']},
+ soil:{t:'Keep soil around the foundation dry through grading and drainage, and reduce openings into the structure.',s:['EPAT']},
+ firewood:{t:'Do not pile or store firewood or wood debris next to the house.',s:['EPAT']},
+ licensed:{t:'Choose a pest control company carefully and check its credentials. Firms offering termite services must be licensed (US: by the state; check your local rules).',s:['EPAT']},
+ probe:{t:'Probe exposed wood for hollow spots with a flathead screwdriver (with the owner\'s permission).',s:['EPAT']},
+ swarm:{t:'Termite swarmers have wings roughly equal in length and straight antennae; ants have longer front wings and bent antennae.',s:['EPAT']},
+ wwCheck:{t:'Old exit holes do not always mean an active attack. Fresh bore dust or emerging beetles suggest activity: get a professional inspection.',s:['DBW']},
+ seal:{t:'Seal gaps as small as 6 mm (1/4 in) around pipes, cables and vents with steel wool held in place with caulk, or metal, cement or hardware cloth for larger gaps.',s:['CDC1']},
+ food:{t:'Keep food in thick plastic, metal or glass containers with tight lids, and put pet food away after use.',s:['CDC1']},
+ cleanup:{t:'Rodent droppings: open doors and windows for 30 minutes and leave, wear gloves, do not sweep or vacuum, spray with disinfectant and leave for 5 minutes, wipe up, then wash your hands.',s:['CDC2']},
+ humidity:{t:'Fix leaks, dry wet materials quickly, and keep indoor humidity below 60%, ideally 30-50%.',s:['EPA1']}
+};
+var STRUCTT=['Structural timber (joist, beam, post)','Stairs','Deck / pergola / fence','Roof timber','Floor / skirting'];
+function stepsFor(f){
+  var has=function(a,x){return a.indexOf(x)>-1;},k=[];
+  var any=function(list,arr){return list.some(function(x){return has(arr,x);});};
+  if(any(['Soft when pressed or probed','Crumbling or cuboidal cracking','White or grey fungal growth','Damp or stained timber','Musty or mushroom smell'],f.signs))k.push('fixMoist','humidity');
+  if(any(['Crumbling or cuboidal cracking','Mushroom-like fruiting body','Red-brown spore dust'],f.signs))k.push('specialist');
+  if(any(['Earthen tubes on walls or piers','Hollow-sounding timber','Winged insects or discarded wings'],f.signs))k.push('licensed','probe');
+  if(has(f.signs,'Winged insects or discarded wings'))k.push('swarm');
+  if(has(f.signs,'Wood touching soil')||has(f.apps,'Foundation / pier'))k.push('soil','firewood');
+  if(has(f.signs,'Small round exit holes')||has(f.signs,'Fresh bore dust (frass)'))k.push('wwCheck');
+  if(has(f.signs,'Droppings or gnaw marks')||has(f.signs,'Nest material'))k.push('cleanup','seal','food');
+  if(has(f.apps,'Pipes / gaps / vents'))k.push('seal');
+  return k.filter(function(x,i){return k.indexOf(x)===i;});
+}
+function stepHtml(key){var s=STEPS[key];return esc(s.t)+' <span class="src" style="display:inline">('+s.s.map(srcShort).join(', ')+')</span>';}
+/* ---------- State ---------- */
+function blank(){return {v:1,kind:'tmbr',settings:{mode:'buyer',theme:'light'},property:{},sweep:{},checks:{},findings:[],timber:[],pests:[],questions:{},seq:0};}
+var S=blank();
+try{var raw=localStorage.getItem(KEY); if(raw){var o=JSON.parse(raw); if(o&&o.v===1){S=Object.assign(blank(),o);}}}catch(e){}
+var saveTimer=null;
+function flush(){
+  clearTimeout(saveTimer);saveTimer=null;
+  try{localStorage.setItem(KEY,JSON.stringify(S));$('#saveState').textContent='SAVED ON THIS DEVICE';}
+  catch(e){$('#saveState').textContent='NOT SAVED - STORAGE FULL';toast('Storage is full. Download a backup, then remove some photos.');}
+}
+function save(){clearTimeout(saveTimer);saveTimer=setTimeout(flush,250);}
+window.addEventListener('pagehide',function(){if(saveTimer)flush();});
+document.addEventListener('visibilitychange',function(){if(document.visibilityState==='hidden'&&saveTimer)flush();});
+
+/* ---------- Helpers ---------- */
+function $(s,r){return (r||document).querySelector(s);}
+function $$(s,r){return Array.prototype.slice.call((r||document).querySelectorAll(s));}
+function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];});}
+function toast(m){var t=$('#toast');t.textContent=m;t.classList.add('show');clearTimeout(t._h);t._h=setTimeout(function(){t.classList.remove('show');},2600);}
+function num(v){if(v===''||v==null)return null;var n=parseFloat(v);return isFinite(n)?n:null;}
+function r1(n){return Math.round(n*10)/10;}
+function r2(n){return Math.round(n*100)/100;}
+function mBoth(m){return m==null?'-':r2(m)+' m ('+r1(m*3.28084)+' ft)';}
+function now(){return new Date().toISOString();}
+function fmtDate(iso){if(!iso)return '-';var d=new Date(iso);return d.toLocaleDateString(undefined,{year:'numeric',month:'short',day:'numeric'});}
+function fmtD(d){return d?fmtDate(new Date(d+'T12:00:00').toISOString()):'-';}
+function daysSince(d){if(!d)return null;return Math.floor((Date.now()-new Date(d+'T12:00:00').getTime())/86400000);}
+
+/* ---------- Settings ---------- */
+function applySettings(){
+  document.documentElement.setAttribute('data-theme',S.settings.theme);
+  document.body.setAttribute('data-mode',S.settings.mode);
+  $$('#modeSeg button').forEach(function(b){b.classList.toggle('on',b.dataset.v===S.settings.mode);});
+  $$('#themeSeg button').forEach(function(b){b.classList.toggle('on',b.dataset.v===S.settings.theme);});
+}
+function segBind(id,key,after){ $$('#'+id+' button').forEach(function(b){b.addEventListener('click',function(){S.settings[key]=b.dataset.v;applySettings();save();if(after)after();});}); }
+segBind('modeSeg','mode',function(){renderAll();});
+segBind('themeSeg','theme');
+
+/* ---------- Tabs ---------- */
+var curTab='start';
+function go(t){
+  curTab=t;
+  $$('.view').forEach(function(v){v.classList.add('hide');});
+  $('#view-'+t).classList.remove('hide');
+  $$('#tabs button').forEach(function(b){b.classList.toggle('on',b.dataset.t===t);});
+  if(t==='report')renderReport();
+  if(t==='log')renderLog();
+  if(t==='findings'&&!curId)showList();
+  window.scrollTo(0,0);
+}
+$$('#tabs button').forEach(function(b){b.addEventListener('click',function(){go(b.dataset.t);});});
+$$('[data-go]').forEach(function(b){b.addEventListener('click',function(){go(b.dataset.go);});});
+
+/* ---------- Property ---------- */
+function renderProperty(){ $$('[data-p]').forEach(function(el){el.value=S.property[el.dataset.p]||'';}); }
+$$('[data-p]').forEach(function(el){el.addEventListener('input',function(){S.property[el.dataset.p]=el.value;save();});el.addEventListener('change',function(){S.property[el.dataset.p]=el.value;save();});});
+
+/* ---------- Sweep ---------- */
+var SW_ST=[['unchecked','Not checked'],['none','No signs'],['signs','Signs found'],['noaccess','No access']];
+function renderSweep(){
+  var h='',lastG='',done=0;
+  SWEEP.forEach(function(s){
+    var st=S.sweep[s.id]||{status:'unchecked'}; if(st.status!=='unchecked')done++;
+    if(s.g!==lastG){h+='<tr><td colspan="4" style="font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--cyan);padding-top:16px;border-bottom:1px solid var(--line)">'+esc(s.g)+'</td></tr>';lastG=s.g;}
+    h+='<tr data-id="'+s.id+'"><td data-l="Area"><b>'+esc(s.a)+'</b><div class="sub">'+esc(s.h)+'</div>'+srcTags(s.s)+'</td><td data-l="Status"><div class="stat">';
+    SW_ST.forEach(function(o){h+='<button type="button" data-v="'+o[0]+'" class="'+(st.status===o[0]?'on':'')+'">'+o[1]+'</button>';});
+    h+='</div><input type="text" class="note-in" placeholder="Note (optional)" value="'+esc(st.note||'')+'"></td>';
+    h+='<td data-l="Hidden or covered?"><select class="conc"><option value="">-</option><option'+(st.conc==='No'?' selected':'')+'>No</option><option'+(st.conc==='Possibly'?' selected':'')+'>Possibly</option><option'+(st.conc==='Yes'?' selected':'')+'>Yes</option></select></td>';
+    h+='<td>'+(st.status==='signs'?'<button type="button" class="btn sm mk">+ Log finding</button>':'')+'</td></tr>';
+  });
+  $('#sweepTbl tbody').innerHTML=h;
+  $('#sweepCount').textContent=done+' / '+SWEEP.length+' CHECKED';
+}
+$('#sweepTbl').addEventListener('click',function(e){
+  var tr=e.target.closest('tr[data-id]');if(!tr)return;var id=tr.dataset.id;var st=S.sweep[id]||(S.sweep[id]={status:'unchecked'});
+  var b=e.target.closest('.stat button');
+  if(b){st.status=b.dataset.v;save();renderSweep();return;}
+  if(e.target.closest('.mk')){var s=SWEEP.filter(function(x){return x.id===id;})[0];newFinding({room:s.a,source:'Timber & Pest Sweep: '+s.a});}
+});
+$('#sweepTbl').addEventListener('input',function(e){var tr=e.target.closest('tr[data-id]');if(!tr)return;var st=S.sweep[tr.dataset.id]||(S.sweep[tr.dataset.id]={status:'unchecked'});
+  if(e.target.classList.contains('note-in'))st.note=e.target.value; save();});
+$('#sweepTbl').addEventListener('change',function(e){if(e.target.classList.contains('conc')){var tr=e.target.closest('tr[data-id]');var st=S.sweep[tr.dataset.id]||(S.sweep[tr.dataset.id]={status:'unchecked'});st.conc=e.target.value;save();}});
+
+/* ---------- Checks ---------- */
+var CK_ST=[['open','Open'],['ok','OK'],['finding','Finding'],['na','N/A']];
+var ckFilter='all';
+$$('#checkFilter button').forEach(function(b){b.addEventListener('click',function(){ckFilter=b.dataset.v;$$('#checkFilter button').forEach(function(x){x.classList.toggle('on',x===b);});renderChecks();});});
+function renderChecks(){
+  var h='',done=0;
+  CHECKS.forEach(function(c){
+    var st=S.checks[c.id]||{status:'open'}; if(st.status!=='open')done++;
+    if(ckFilter==='High'||ckFilter==='Medium'){if(c.p!==ckFilter)return;}
+    if(ckFilter==='open'&&st.status!=='open')return;
+    if(ckFilter==='finding'&&st.status!=='finding')return;
+    h+='<tr data-id="'+c.id+'"><td data-l="Check"><b>'+esc(c.t)+'</b><div class="sub">'+esc(c.r)+'</div>'+srcTags(c.s)+'</td><td data-l="What to record">'+esc(c.m)+'</td><td data-l="Priority"><span class="risk '+c.p+'">'+c.p+'</span></td><td data-l="Status"><div class="stat">';
+    CK_ST.forEach(function(o){h+='<button type="button" data-v="'+o[0]+'" class="'+(st.status===o[0]?'on':'')+'">'+o[1]+'</button>';});
+    h+='</div><input type="text" class="note-in" placeholder="Note (optional)" value="'+esc(st.note||'')+'">'+(st.status==='finding'?'<div style="margin-top:6px"><button type="button" class="btn sm mk">+ Log finding</button></div>':'')+'</td></tr>';
+  });
+  if(!h)h='<tr><td colspan="4"><div class="empty">No checks match this filter.</div></td></tr>';
+  $('#checkTbl tbody').innerHTML=h;
+  $('#checkCount').textContent=done+' / '+CHECKS.length+' COMPLETED';
+}
+$('#checkTbl').addEventListener('click',function(e){
+  var tr=e.target.closest('tr[data-id]');if(!tr)return;var id=tr.dataset.id;var st=S.checks[id]||(S.checks[id]={status:'open'});
+  var b=e.target.closest('.stat button');
+  if(b){st.status=b.dataset.v;save();renderChecks();return;}
+  if(e.target.closest('.mk')){var c=CHECKS.filter(function(x){return x.id===id;})[0];newFinding({source:'Master check: '+c.t,risk:c.p});}
+});
+$('#checkTbl').addEventListener('input',function(e){var tr=e.target.closest('tr[data-id]');if(!tr)return;var st=S.checks[tr.dataset.id]||(S.checks[tr.dataset.id]={status:'open'});st.note=e.target.value;save();});
+
+/* ---------- Findings ---------- */
+var curId=null;
+function findById(id){return S.findings.filter(function(f){return f.id===id;})[0];}
+function newFinding(pre){
+  S.seq=(S.seq||0)+1;
+  var id='TMBR-'+String(S.seq).padStart(3,'0');
+  var f={id:id,created:now(),room:'',apps:[],signs:[],size:null,link:'',desc:'',photos:{},risk:'',riskAuto:true,escalate:'',status:'Open',recheck:'',notes:'',source:''};
+  if(pre)Object.keys(pre).forEach(function(k){f[k]=pre[k];});
+  if(pre&&pre.risk)f.riskAuto=false;
+  S.findings.push(f);save();
+  go('findings');openFinding(id);
+}
+function showList(){curId=null;$('#findEdit').classList.add('hide');$('#findList').classList.remove('hide');renderFindList();}
+function openFinding(id){curId=id;$('#findList').classList.add('hide');$('#findEdit').classList.remove('hide');renderEditor();window.scrollTo(0,0);}
+$('#addFinding').addEventListener('click',function(){newFinding();});
+$('#newFindingStart').addEventListener('click',function(){newFinding();});
+$('#backToList').addEventListener('click',showList);
+
+var HIGH_SIGNS=['Crumbling or cuboidal cracking','Mushroom-like fruiting body','Red-brown spore dust','Earthen tubes on walls or piers'];
+function isHigh(f){
+  if(f.signs.some(function(x){return HIGH_SIGNS.indexOf(x)>-1;}))return true;
+  if(STRUCTT.some(function(x){return f.apps.indexOf(x)>-1;})&&(f.signs.indexOf('Soft when pressed or probed')>-1||f.signs.indexOf('Hollow-sounding timber')>-1))return true;
+  return false;
+}
+function suggestRisk(f){
+  if(isHigh(f))return 'High';
+  if(f.signs.length&&f.signs.every(function(x){return x==='No issue seen';}))return 'Low';
+  if(f.signs.length||f.apps.length)return 'Medium';
+  return '';
+}
+function chipGroup(key,list,f){
+  var h='<div class="chips" data-k="'+key+'">';
+  list.forEach(function(x){h+='<button type="button" class="chip'+(f[key].indexOf(x)>-1?' on':'')+'" data-x="'+esc(x)+'">'+esc(x)+'</button>';});
+  return h+'</div>';
+}
+function stepH(n,tag,title){return '<div class="step-h"><div class="num">'+n+'</div><div><div class="tag">'+tag+'</div><h3>'+title+'</h3></div></div>';}
+function photoSlot(k,t,d,f){
+  var src=f.photos[k];
+  return '<div class="ph" data-ph="'+k+'"><div class="pt">'+t+'</div><div class="pd">'+d+'</div>'+(src?'<img alt="'+t+' photo" src="'+src+'"><div class="row"><label class="btn sm">Replace<input type="file" accept="image/*" capture="environment"></label><button type="button" class="btn sm danger rmph">Remove</button></div>':'<label class="btn sm">Add photo<input type="file" accept="image/*" capture="environment"></label>')+'</div>';
+}
+function mcTxt(c){return c==null?'-':r1(c)+'% (meter reading)';}
+function sizeMsg(f){if(f.size==null)return '';return mcTxt(f.size)+(f.size>=20?' &middot; around 20% or more: damp enough for dry rot to start (Designing Buildings). Context only':' &middot; context only; readings vary by meter and timber');}
+function renderEditor(){
+  var f=findById(curId);if(!f){showList();return;}
+  if(f.riskAuto){f.risk=suggestRisk(f);}
+  $('#edTitle').textContent=f.id;
+  var h='';
+  if(f.source)h+='<div class="info">Started from: '+esc(f.source)+'</div>';
+  h+='<div class="step">'+stepH(1,'Locate','Where and which timber?')+
+    '<label class="f"><span>Location</span><input type="text" data-f="room" value="'+esc(f.room)+'" placeholder="e.g. Kitchen, floor in front of the sink"></label>'+
+    '<div class="q">Item</div>'+chipGroup('apps',APPS,f)+'</div>';
+  h+='<div class="step">'+stepH(2,'Observe','What do you notice?')+chipGroup('signs',SIGNS,f)+
+    '<label class="f" style="margin-top:12px"><span>Describe what you see (facts only)</span><textarea data-f="desc" placeholder="e.g. Skirting soft for 30 cm, dark staining, musty smell; two small holes with fine dust below">'+esc(f.desc)+'</textarea></label></div>';
+  h+='<div class="step">'+stepH(3,'Measure','Moisture and links')+
+    '<div class="grid g2"><label class="f"><span>Timber moisture meter reading (%, optional)</span><input type="number" step="1" min="0" max="100" data-fn="size" value="'+(f.size==null?'':f.size)+'"><span class="conv" id="dConv">'+sizeMsg(f)+'</span></label>'+
+    '<label class="f"><span>Linked finding (other check)</span><input type="text" data-f="link" value="'+esc(f.link)+'" placeholder="e.g. DAMP-002, PLMB-001"></label></div>'+
+    '<p class="hint">Add timber to the Timber Register to re-grade it over time, and pest sightings to the Pest Sighting Log.</p></div>';
+  h+='<div class="step">'+stepH(4,'Photograph','Three-photo evidence set')+
+    '<div class="photos">'+photoSlot('context','1 - Context','The whole timber item and where it is',f)+photoSlot('close','2 - Close-up','Holes, dust, cracking or fungus, with a ruler for scale',f)+photoSlot('relation','3 - Relationship','The moisture source or entry point nearby',f)+'</div>'+
+    '<p class="hint">Do not break open timber, lift boards or remove panels to take a photo.</p></div>';
+  h+='<div class="step">'+stepH(5,'Classify','Priority')+
+    '<div class="row"><div class="seg" id="riskSeg">'+['High','Medium','Low'].map(function(x){return '<button type="button" data-v="'+x+'" class="'+(f.risk===x?'on':'')+'">'+x+'</button>';}).join('')+'</div>'+
+    '<span class="hint">'+(f.riskAuto?'Suggested from your answers. Tap to set your own.':'Set by you. <a href="#" id="riskAutoBtn">Use suggestion</a>')+'</span></div></div>';
+  h+='<div class="step">'+stepH(6,'Escalate','Licensed pest professional, timber specialist or structural engineer')+
+    '<div class="chips" data-single="escalate">'+['Licensed pest professional','Timber / damp specialist','Structural engineer','Monitor and re-check','Not currently indicated'].map(function(x){return '<button type="button" class="chip'+(f.escalate===x?' on':'')+'" data-x="'+x+'">'+x+'</button>';}).join('')+'</div>'+
+    '<div class="grid g2" style="margin-top:12px"><label class="f"><span>Status</span><select data-f="status">'+['Open','Monitoring','Professional booked','Moisture source fixed','Resolved'].map(function(x){return '<option'+(f.status===x?' selected':'')+'>'+x+'</option>';}).join('')+'</select></label>'+
+    '<label class="f owner-only"><span>Re-check date</span><input type="date" data-f="recheck" value="'+esc(f.recheck)+'"></label></div>'+
+    '<label class="f" style="margin-top:12px"><span>Notes</span><textarea data-f="notes">'+esc(f.notes)+'</textarea></label></div>';
+  h+='<div class="row" style="margin-top:6px"><button type="button" class="btn pri" id="doneFinding">Save and close</button><button type="button" class="btn danger" id="delFinding">Delete finding</button></div>';
+  $('#edBody').innerHTML=h;
+  renderPrompts(f);
+}
+function buildPrompts(f){
+  var has=function(a,x){return a.indexOf(x)>-1;};
+  var any=function(list,arr){return list.some(function(x){return has(arr,x);});};
+  var ind=[],next=[],warn=[],esc_=[];
+  f.apps.forEach(function(x){ind.push(x);});
+  f.signs.forEach(function(x){if(x!=='No issue seen')ind.push(x);});
+  if(f.size!=null)ind.push('Moisture reading: '+mcTxt(f.size));
+  if(STRUCTT.some(function(x){return has(f.apps,x);})&&any(['Soft when pressed or probed','Hollow-sounding timber','Crumbling or cuboidal cracking'],f.signs))warn.push('Do not stand on, load or lean on this timber. Keep people off it until a specialist or structural engineer has checked it.');
+  if(has(f.signs,'Droppings or gnaw marks'))warn.push('Do not sweep or vacuum droppings. Ventilate for 30 minutes, wear gloves and wet them with disinfectant first (CDC).');
+  if(any(['Crumbling or cuboidal cracking','Mushroom-like fruiting body','Red-brown spore dust'],f.signs))next.push('Possible dry rot: it can spread through masonry. Photograph it, note any musty or mushroom smell, and look at nearby timber and walls. A specialist must diagnose it (Designing Buildings).');
+  if(any(['Soft when pressed or probed','Damp or stained timber','White or grey fungal growth'],f.signs))next.push('Look for the water source: leaks, condensation, downpipes, wood touching soil. Use the Dampness or Plumbing check to record it.');
+  if(has(f.signs,'Earthen tubes on walls or piers')||has(f.signs,'Hollow-sounding timber'))next.push('Do not break open tubes or timber. Photograph them and book a licensed pest professional.');
+  if(has(f.signs,'Winged insects or discarded wings'))next.push('Collect a few in a sealed bag or photograph them closely: wing length and antennae help tell termites from ants (EPA).');
+  if(has(f.signs,'Small round exit holes')||has(f.signs,'Fresh bore dust (frass)'))next.push('Note whether the dust is fresh and whether new holes appear. Log it in the Pest Sighting Log and re-check (Designing Buildings).');
+  if(has(f.signs,'Droppings or gnaw marks')||has(f.signs,'Nest material'))next.push('Find how they get in: gaps around pipes, cables and vents as small as 6 mm (1/4 in) (CDC).');
+  if(has(f.signs,'Wood touching soil'))next.push('Note every place timber touches the ground and whether the soil there stays wet.');
+  if(isHigh(f))esc_.push('A licensed pest professional, timber specialist or structural engineer (as relevant) should look at this.');
+  esc_.push('A visual check cannot identify the fungus or insect, or measure how much strength the timber has lost. A specialist can.');
+  function uniq(a){return a.filter(function(x,i){return a.indexOf(x)===i;});}
+  return {ind:uniq(ind),next:uniq(next),warn:uniq(warn),esc:uniq(esc_)};
+}
+function renderPrompts(f){
+  var p=buildPrompts(f),h='';
+  p.warn.forEach(function(w){h+='<div class="warn"><b>Safety:</b> '+esc(w)+'</div>';});
+  h+='<h4>Observation pattern</h4>';
+  h+=p.ind.length?'<ul>'+p.ind.map(function(x){return '<li>'+esc(x)+'</li>';}).join('')+'</ul>':'<p class="hint">Tick the item and what you notice. Prompts build as you go.</p>';
+  if(p.next.length)h+='<h4>Check next</h4><ul>'+p.next.map(function(x){return '<li>'+esc(x)+'</li>';}).join('')+'</ul>';
+  if(p.esc.length)h+='<h4>Escalation</h4><ul>'+p.esc.map(function(x){return '<li>'+esc(x)+'</li>';}).join('')+'</ul>';
+  var st=stepsFor(f);
+  if(st.length)h+='<h4>'+(S.settings.mode==='buyer'?'Safe steps (for the owner)':'Safe steps now')+'</h4><ul class="steps">'+st.map(function(k){return '<li>'+stepHtml(k)+'</li>';}).join('')+'</ul>';
+  h+='<p class="hint" style="margin:0">These prompts organise evidence. They do not identify the cause. "Check next" and escalation prompts: professional practice. Safety prompts and safe steps: cited as shown.</p>';
+  $('#promptBox').innerHTML=h;
+}
+function refreshSide(f){
+  if(f.riskAuto){f.risk=suggestRisk(f);$$('#riskSeg button').forEach(function(b){b.classList.toggle('on',b.dataset.v===f.risk);});}
+  var dc=$('#dConv');if(dc)dc.innerHTML=sizeMsg(f);
+  renderPrompts(f);
+}
+$('#edBody').addEventListener('click',function(e){
+  var f=findById(curId);if(!f)return;
+  var chip=e.target.closest('.chip');
+  if(chip){
+    var grp=chip.parentNode,x=chip.dataset.x;
+    if(grp.dataset.k){var a=f[grp.dataset.k],i=a.indexOf(x);if(i>-1)a.splice(i,1);else a.push(x);chip.classList.toggle('on');}
+    else if(grp.dataset.single){var k=grp.dataset.single;f[k]=f[k]===x?'':x;$$('.chip',grp).forEach(function(c){c.classList.toggle('on',c.dataset.x===f[k]);});}
+    save();refreshSide(f);return;
+  }
+  var rb=e.target.closest('#riskSeg button');
+  if(rb){f.risk=rb.dataset.v;f.riskAuto=false;save();renderEditor();return;}
+  if(e.target.id==='riskAutoBtn'){e.preventDefault();f.riskAuto=true;save();renderEditor();return;}
+  if(e.target.closest('.rmph')){var k2=e.target.closest('[data-ph]').dataset.ph;delete f.photos[k2];save();renderEditor();return;}
+  if(e.target.id==='doneFinding'){save();toast(f.id+' saved');showList();return;}
+  if(e.target.id==='delFinding'){
+    if(e.target.dataset.confirm){S.findings=S.findings.filter(function(x){return x.id!==f.id;});save();toast(f.id+' deleted');showList();}
+    else{e.target.dataset.confirm='1';e.target.textContent='Tap again to delete';setTimeout(function(){if(e.target){delete e.target.dataset.confirm;e.target.textContent='Delete finding';}},3000);}
+  }
+});
+$('#edBody').addEventListener('input',function(e){
+  var f=findById(curId);if(!f)return;var t=e.target;
+  if(t.dataset.f){f[t.dataset.f]=t.value;save();}
+  else if(t.dataset.fn){f[t.dataset.fn]=num(t.value);save();refreshSide(f);}
+});
+$('#edBody').addEventListener('change',function(e){
+  var t=e.target;
+  if(t.type==='file'&&t.files&&t.files[0]){
+    var f=findById(curId),k=t.closest('[data-ph]').dataset.ph;
+    compress(t.files[0],function(url){if(!url){toast('Could not read that image.');return;}f.photos[k]=url;save();renderEditor();});
+  } else if(t.tagName==='SELECT'&&t.dataset.f){var f2=findById(curId);f2[t.dataset.f]=t.value;save();}
+});
+function compress(file,cb){
+  var rd=new FileReader();
+  rd.onload=function(){var img=new Image();img.onload=function(){
+    var max=900,w=img.width,h=img.height,sc=Math.min(1,max/Math.max(w,h));
+    var c=document.createElement('canvas');c.width=Math.round(w*sc);c.height=Math.round(h*sc);
+    c.getContext('2d').drawImage(img,0,0,c.width,c.height);
+    try{cb(c.toDataURL('image/jpeg',0.62));}catch(err){cb(null);}
+  };img.onerror=function(){cb(null);};img.src=rd.result;};
+  rd.onerror=function(){cb(null);};
+  rd.readAsDataURL(file);
+}
+function renderFindList(){
+  var h='';
+  $('#findCount').textContent=S.findings.length+' FINDING'+(S.findings.length===1?'':'S');
+  if(!S.findings.length){h='<div class="empty">No findings yet. Tap <b>+ New finding</b>, or log one from the Timber & Pest Sweep or Master Checks.</div>';}
+  S.findings.forEach(function(f){
+    var pc=Object.keys(f.photos).length;
+    h+='<div class="fcard '+(f.risk||'')+'"><div><div class="row"><span class="fid">'+f.id+'</span>'+(f.risk?'<span class="risk '+f.risk+'">'+f.risk+'</span>':'')+'<span class="hint">'+esc(f.status)+'</span></div>'+
+      '<div style="margin-top:4px"><b>'+esc(f.room||'Location not set')+'</b></div>'+
+      '<div class="meta">'+esc(f.apps.join(', ')||'Item not set')+' &middot; '+esc(f.signs.join(', ')||'No observations yet')+'</div>'+
+      '<div class="meta">Photos: '+pc+'/3 &middot; Escalation: '+esc(f.escalate||'not set')+'</div></div>'+
+      '<div><button type="button" class="btn sm" data-open="'+f.id+'">Open</button></div></div>';
+  });
+  $('#findItems').innerHTML=h;
+}
+$('#findItems').addEventListener('click',function(e){var b=e.target.closest('[data-open]');if(b)openFinding(b.dataset.open);});
+
+
+/* ---------- Timber register & pest log ---------- */
+var TGRADES=['0 - Sound','1 - Weathered or finish failing','2 - Damp, stained or darkened','3 - Soft when pressed, holes or cracking','4 - Crumbling, fungus or active insects'];
+function tbFlags(t){
+  var st=[];
+  var structural=['Structural (joist, beam, post)','Stairs','Deck / pergola / fence'].indexOf(t.type)>-1;
+  if(t.grade>=4)st.push({t:'Specialist needed',c:'High'});
+  else if(t.grade===3)st.push({t:structural?'Keep off, specialist needed':'Get advice, find the moisture',c:structural?'High':'Medium'});
+  else if(t.grade===2)st.push({t:'Find the moisture source',c:'Medium'});
+  if(t.soil==='Yes')st.push({t:'Wood touching soil (EPA)',c:'Medium'});
+  if(t.mc!=null&&t.mc>=20)st.push({t:'Around 20%+ moisture (context)',c:'Medium'});
+  if(!st.length)st.push({t:'OK',c:'Low'});
+  return st;
+}
+function psNext(p){
+  if(/Termites|Earthen|Winged/.test(p.type))return {t:'Licensed pest professional (EPA)',c:'High'};
+  if(/Rodent/.test(p.type))return {t:'Seal 6 mm (1/4 in) gaps; clean up safely (CDC)',c:'Medium'};
+  if(/beetles/.test(p.type))return {t:'Check for fresh dust; professional survey (Designing Buildings)',c:'Medium'};
+  return {t:'Photograph and monitor',c:'Medium'};
+}
+function renderLog(){
+  var h='';
+  S.timber.forEach(function(t,i){
+    h+='<tr><td data-l="Item"><b>'+esc(t.item)+'</b>'+(t.loc?'<div class="sub">'+esc(t.loc)+'</div>':'')+'</td><td data-l="Type">'+esc(t.type)+'</td><td data-l="Grade">'+esc(TGRADES[t.grade])+'</td><td data-l="Moisture">'+(t.mc==null?'-':r1(t.mc)+'%')+'</td><td data-l="Flags">'+tbFlags(t).map(function(x){return '<span class="risk '+x.c+'" style="margin:0 4px 4px 0;display:inline-block">'+esc(x.t)+'</span>';}).join('')+'</td><td><button type="button" class="btn sm ghost" data-tbdel="'+i+'">Remove</button></td></tr>';});
+  if(!h)h='<tr><td colspan="6"><div class="empty">No timber in the register yet.</div></td></tr>';
+  $('#tbTbl tbody').innerHTML=h;
+  var g34=S.timber.filter(function(t){return t.grade>=3;}).length;
+  $('#tbCount').textContent=S.timber.length+' ITEM'+(S.timber.length===1?'':'S')+(g34?' · '+g34+' GRADE 3-4':'');
+  var v='';
+  S.pests.forEach(function(p,i){var n=psNext(p);
+    v+='<tr><td data-l="What">'+esc(p.type)+'</td><td data-l="Where">'+esc(p.loc||'-')+'</td><td data-l="Date">'+fmtD(p.date)+'</td><td data-l="Action">'+esc(p.act)+'</td><td data-l="Next step"><span class="risk '+(p.act==='Resolved'?'Low':n.c)+'">'+esc(p.act==='Resolved'?'Resolved':n.t)+'</span></td><td><button type="button" class="btn sm ghost" data-psdel="'+i+'">Remove</button></td></tr>';});
+  if(!v)v='<tr><td colspan="6"><div class="empty">No sightings logged yet.</div></td></tr>';
+  $('#psTbl tbody').innerHTML=v;
+  var open=S.pests.filter(function(p){return p.act!=='Resolved';}).length;
+  $('#psCount').textContent=S.pests.length+' SIGHTING'+(S.pests.length===1?'':'S')+(open?' · '+open+' NOT RESOLVED':'');
+}
+$('#tbSave').addEventListener('click',function(){
+  if(!$('#tbItem').value){toast('Enter the timber item.');return;}
+  var mc=num($('#tbMc').value);if(mc!=null&&(mc<0||mc>100)){toast('Enter a moisture reading between 0 and 100%.');return;}
+  S.timber.push({item:$('#tbItem').value,loc:$('#tbLoc').value,type:$('#tbType').value,grade:+$('#tbGrade').value,mc:mc,soil:$('#tbSoil').value});
+  save();['tbItem','tbLoc','tbMc'].forEach(function(id){$('#'+id).value='';});renderLog();toast('Added to register');
+});
+$('#tbTbl').addEventListener('click',function(e){var b=e.target.closest('[data-tbdel]');if(!b)return;S.timber.splice(+b.dataset.tbdel,1);save();renderLog();});
+$('#psSave').addEventListener('click',function(){
+  if(!$('#psLoc').value){toast('Enter where you saw it.');return;}
+  S.pests.push({type:$('#psType').value,loc:$('#psLoc').value,date:$('#psDate').value,act:$('#psAct').value});
+  save();$('#psLoc').value='';renderLog();toast('Sighting added');
+});
+$('#psTbl').addEventListener('click',function(e){var b=e.target.closest('[data-psdel]');if(!b)return;S.pests.splice(+b.dataset.psdel,1);save();renderLog();});
+
+/* ---------- Report ---------- */
+function renderReport(){
+  var P=S.property,mode=S.settings.mode==='buyer'?'Pre-Purchase':'Maintenance';
+  var hi=0,esc_=0;S.findings.forEach(function(f){if(f.risk==='High')hi++;if(f.escalate&&f.escalate!=='Not currently indicated'&&f.escalate!=='Monitor and re-check')esc_++;});
+  var g34=S.timber.filter(function(t){return t.grade>=3;}).length;
+  var h='<div style="display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;border-bottom:2px solid var(--ink);padding-bottom:10px;margin-bottom:14px">'+
+    '<div><div style="font-family:var(--mono);font-size:11px;letter-spacing:.14em;color:var(--cyan)">THE SNAG TAG &middot; BENEATH THE SURFACE</div><h2 style="margin:4px 0 0;font-size:22px">Timber &amp; Pest Record</h2><div class="hint">'+mode+' check</div></div>'+
+    '<div style="font-family:var(--mono);font-size:12px;text-align:right">'+esc(P.name||'Property')+'<br>'+esc(P.address||'')+'<br>Date: '+esc(P.date||'-')+'<br>By: '+esc(P.inspector||'-')+'</div></div>';
+  h+='<div class="sum-grid"><div class="kpi"><div class="k">Findings</div><div class="v">'+S.findings.length+'</div></div><div class="kpi"><div class="k">High priority</div><div class="v" style="color:var(--high)">'+hi+'</div></div><div class="kpi"><div class="k">Timber grade 3-4</div><div class="v">'+g34+'</div></div><div class="kpi"><div class="k">Pest sightings</div><div class="v">'+S.pests.length+'</div></div></div>';
+  h+='<h3 style="font-size:15px;margin:18px 0 6px">Property</h3><p style="margin:0;font-size:14px">Structure: '+esc(P.frame||'-')+' &middot; Ground floor: '+esc(P.floor||'-')+' &middot; Last pest inspection: '+esc(P.lastpest||'-')+' &middot; Termite system / warranty: '+esc(P.system||'-')+(S.settings.mode==='buyer'?' &middot; Occupied: '+esc(P.occupied||'-'):'')+'</p>'+(P.notes?'<p style="font-size:14px">'+esc(P.notes)+'</p>':'');
+  h+='<h3 style="font-size:15px;margin:18px 0 6px">Timber register</h3>'+(S.timber.length?'<table class="tbl"><thead><tr><th>Item</th><th>Type</th><th>Grade</th><th>Moisture</th><th>Flags</th></tr></thead><tbody>'+S.timber.map(function(t){return '<tr><td>'+esc(t.item)+(t.loc?' - '+esc(t.loc):'')+'</td><td>'+esc(t.type)+'</td><td>'+esc(TGRADES[t.grade])+'</td><td>'+(t.mc==null?'-':r1(t.mc)+'%')+'</td><td>'+tbFlags(t).map(function(x){return esc(x.t);}).join('; ')+'</td></tr>';}).join('')+'</tbody></table>':'<p class="hint">No timber recorded.</p>');
+  h+='<h3 style="font-size:15px;margin:18px 0 6px">Pest sighting log</h3>'+(S.pests.length?'<table class="tbl"><thead><tr><th>What</th><th>Where</th><th>Date</th><th>Action</th><th>Next step</th></tr></thead><tbody>'+S.pests.map(function(p){return '<tr><td>'+esc(p.type)+'</td><td>'+esc(p.loc||'-')+'</td><td>'+fmtD(p.date)+'</td><td>'+esc(p.act)+'</td><td>'+esc(p.act==='Resolved'?'Resolved':psNext(p).t)+'</td></tr>';}).join('')+'</tbody></table>':'<p class="hint">No sightings recorded.</p>');
+  h+='<h3 style="font-size:15px;margin:18px 0 6px">Findings</h3>';
+  if(!S.findings.length)h+='<p class="hint">No findings recorded.</p>';
+  S.findings.forEach(function(f){
+    var p=buildPrompts(f),st=stepsFor(f);
+    h+='<div class="rep-f"><div class="row"><span class="fid">'+f.id+'</span>'+(f.risk?'<span class="risk '+f.risk+'">'+f.risk+'</span>':'')+'<b>'+esc(f.room||'')+'</b></div><dl>'+
+      '<dt>Item</dt><dd>'+esc(f.apps.join(', ')||'-')+'</dd>'+
+      '<dt>Observation</dt><dd>'+esc(f.signs.join(', ')||'-')+(f.desc?'<br>'+esc(f.desc):'')+'</dd>'+
+      (f.size!=null?'<dt>Moisture</dt><dd>'+mcTxt(f.size)+' (context only)</dd>':'')+
+      (f.link?'<dt>Linked</dt><dd>'+esc(f.link)+'</dd>':'')+
+      '<dt>Escalation</dt><dd>'+esc(f.escalate||'-')+' &middot; Status: '+esc(f.status)+(f.recheck?' &middot; Re-check: '+esc(f.recheck):'')+'</dd>'+
+      (p.warn.length?'<dt>Safety</dt><dd>'+p.warn.map(esc).join('<br>')+'</dd>':'')+
+      (p.next.length?'<dt>Check next</dt><dd>'+p.next.map(esc).join('<br>')+'</dd>':'')+
+      (st.length?'<dt>Safe steps</dt><dd>'+st.map(stepHtml).join('<br>')+'</dd>':'')+
+      (f.notes?'<dt>Notes</dt><dd>'+esc(f.notes)+'</dd>':'')+'</dl>';
+    var ph=[['context','Context'],['close','Close-up'],['relation','Relationship']].filter(function(x){return f.photos[x[0]];});
+    if(ph.length)h+='<div class="rep-photos">'+ph.map(function(x){return '<figure><img alt="'+x[1]+'" src="'+f.photos[x[0]]+'"><figcaption>'+x[1]+'</figcaption></figure>';}).join('')+'</div>';
+    h+='</div>';
+  });
+  var sw=SWEEP.filter(function(s){return S.sweep[s.id]&&S.sweep[s.id].status!=='unchecked';});
+  h+='<h3 style="font-size:15px;margin:18px 0 6px">Timber &amp; Pest Sweep</h3>';
+  h+=sw.length?'<table class="tbl"><thead><tr><th>Area</th><th>Result</th><th>Hidden?</th><th>Note</th></tr></thead><tbody>'+sw.map(function(s){var st=S.sweep[s.id];return '<tr><td>'+esc(s.a)+'</td><td>'+esc(SW_ST.filter(function(o){return o[0]===st.status;})[0][1])+'</td><td>'+esc(st.conc||'-')+'</td><td>'+esc(st.note||'')+'</td></tr>';}).join('')+'</tbody></table>':'<p class="hint">Not started.</p>';
+  var nc=SWEEP.length-sw.length; if(nc>0)h+='<p class="hint">'+nc+' area(s) not checked.</p>';
+  var ck=CHECKS.filter(function(c){return S.checks[c.id]&&S.checks[c.id].status!=='open';});
+  h+='<h3 style="font-size:15px;margin:18px 0 6px">Master Checks</h3>';
+  h+=ck.length?'<table class="tbl"><thead><tr><th>Check</th><th>Priority</th><th>Result</th><th>Note</th></tr></thead><tbody>'+ck.map(function(c){var st=S.checks[c.id];return '<tr><td>'+esc(c.t)+'</td><td><span class="risk '+c.p+'">'+c.p+'</span></td><td>'+esc(CK_ST.filter(function(o){return o[0]===st.status;})[0][1])+'</td><td>'+esc(st.note||'')+'</td></tr>';}).join('')+'</tbody></table>':'<p class="hint">Not started.</p>';
+  var oc=CHECKS.length-ck.length; if(oc>0)h+='<p class="hint">'+oc+' check(s) still open.</p>';
+  if(S.settings.mode==='buyer'){
+    h+='<h3 style="font-size:15px;margin:18px 0 6px">Questions for the seller or agent</h3><div class="no-print hint" style="margin-bottom:6px">Tick the questions you want on your printed record.</div><ul style="list-style:none;padding:0;margin:0">';
+    QUESTIONS.forEach(function(q,i){var on=S.questions[i]!==false;h+='<li style="margin-bottom:6px;'+(on?'':'opacity:.45')+'" class="'+(on?'':'no-print')+'"><label style="display:flex;gap:8px;align-items:flex-start;font-size:14px"><input type="checkbox" data-q="'+i+'"'+(on?' checked':'')+'> <span>'+esc(q)+'</span></label></li>';});
+    h+='</ul><p class="hint">Pest inspection customs and disclosure rules differ between countries. Check with your conveyancer or agent.</p>';
+  }
+  h+='<div class="info" style="margin-top:18px"><b>Important:</b> this record documents visible signs of timber decay and pests. It does not identify the fungus or insect, measure strength loss, or replace a timber pest inspection by a licensed professional.</div>';
+  h+='<h3 style="font-size:15px;margin:18px 0 6px">Sources</h3><ul class="srclist">'+Object.keys(SRC).map(function(k){var s=SRC[k];return '<li><b>'+esc(s.n)+'</b> ('+esc(s.d)+')'+(s.u?'<br><span class="hint">'+esc(s.u)+'</span>':'')+'</li>';}).join('')+'</ul>';
+  $('#reportBody').innerHTML=h;
+}
+$('#reportBody').addEventListener('change',function(e){var q=e.target.dataset.q;if(q==null)return;S.questions[q]=e.target.checked;save();renderReport();});
+$('#printBtn').addEventListener('click',function(){renderReport();window.print();});
+$('#exportBtn').addEventListener('click',function(){
+  var blob=new Blob([JSON.stringify(S,null,1)],{type:'application/json'});var a=document.createElement('a');
+  var nm=(S.property.name||'property').replace(/[^a-z0-9]+/gi,'-').replace(/^-|-$/g,'').toLowerCase()||'property';
+  a.href=URL.createObjectURL(blob);a.download='timber-pests-'+nm+'-'+new Date().toISOString().slice(0,10)+'.json';document.body.appendChild(a);a.click();
+  setTimeout(function(){URL.revokeObjectURL(a.href);a.remove();},500);toast('Backup downloaded');
+});
+$('#importFile').addEventListener('change',function(e){
+  var file=e.target.files[0];if(!file)return;var rd=new FileReader();
+  rd.onload=function(){try{var o=JSON.parse(rd.result);if(!o||o.v!==1||o.kind!=='tmbr'||!Array.isArray(o.findings))throw 0;S=Object.assign(blank(),o);save();applySettings();renderAll();go('report');toast('Backup restored');}catch(err){toast('That file is not a valid Timber & Pests backup.');}e.target.value='';};
+  rd.readAsText(file);
+});
+$('#resetBtn').addEventListener('click',function(e){
+  var b=e.currentTarget;
+  if(b.dataset.confirm){var keep=S.settings;S=blank();S.settings=keep;save();renderAll();toast('All data cleared');delete b.dataset.confirm;b.textContent='Clear all data';}
+  else{b.dataset.confirm='1';b.textContent='Tap again to clear everything';setTimeout(function(){delete b.dataset.confirm;b.textContent='Clear all data';},3500);}
+});
+
+/* ---------- Guide ---------- */
+function renderGuide(){
+  $('#stepsList').innerHTML=Object.keys(STEPS).map(function(k){return '<li>'+stepHtml(k)+'</li>';}).join('');
+  $('#srcList').innerHTML=Object.keys(SRC).map(function(k){var s=SRC[k];return '<li id="src-'+k+'"><span class="key">'+srcShort(k)+'</span><b>'+esc(s.n)+'</b> ('+esc(s.d)+')'+(s.u?'<br><a href="'+s.u+'" target="_blank" rel="noopener">'+esc(s.u)+'</a>':'')+'</li>';}).join('');
+}
+document.addEventListener('click',function(e){
+  var a=e.target.closest('a[data-src]');if(!a)return;e.preventDefault();e.stopPropagation();
+  go('guide');var el=document.getElementById('src-'+a.dataset.src);if(el){setTimeout(function(){el.scrollIntoView({block:'center'});el.style.background='var(--cyan-soft)';setTimeout(function(){el.style.background='';},1800);},30);}
+},true);
+
+/* ---------- Init ---------- */
+function renderAll(){renderProperty();renderSweep();renderChecks();renderLog();if(curId&&findById(curId))renderEditor();else showList();if(curTab==='report')renderReport();}
+if(!S.property.date){S.property.date=new Date().toISOString().slice(0,10);}
+['timber','pests'].forEach(function(k){if(!Array.isArray(S[k]))S[k]=[];});
+renderGuide();applySettings();renderAll();go('start');
+})();
+</script>
+</body>
+</html>
